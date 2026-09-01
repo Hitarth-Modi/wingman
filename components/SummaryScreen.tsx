@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { CallState } from "@/types/conversation";
 import { DemoRecommendation } from "./DemoRecommendation";
 import { formatIndustry } from "./formatters";
+import { GumletLogo } from "./GumletLogo";
 
 type SummaryScreenProps = {
   callState: CallState;
@@ -18,7 +19,8 @@ export function SummaryScreen({ callState, onStartNewCall }: SummaryScreenProps)
     <main className="min-h-screen bg-[#f7f7fb] px-5 py-6 text-[#17121f] sm:px-8">
       <section className="mx-auto max-w-5xl">
         <div className="rounded-lg border border-[#e4e1eb] bg-white p-6 shadow-[0_16px_44px_rgba(33,24,55,0.08)] sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#6d35c7]">
+          <GumletLogo />
+          <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-[#6d35c7]">
             Call complete
           </p>
           <h1 className="mt-3 text-4xl font-semibold text-[#17121f]">

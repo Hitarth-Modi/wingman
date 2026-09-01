@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { CallState } from "@/types/conversation";
 import { formatIndustry } from "./formatters";
+import { GumletLogo } from "./GumletLogo";
 
 type CallPilotHeaderProps = {
   callState: CallState;
@@ -26,7 +27,10 @@ export function CallPilotHeader({ callState, onEndCall }: CallPilotHeaderProps) 
       <div className="mx-auto flex max-w-[1500px] flex-col gap-3 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-xl font-semibold text-[#17121f]">Gumlet CallPilot</h1>
+            <div className="flex items-center gap-3">
+              <GumletLogo compact />
+              <h1 className="text-xl font-semibold text-[#17121f]">CallPilot</h1>
+            </div>
             <span className="inline-flex items-center gap-2 rounded-full border border-[#d9f0df] bg-[#f0fbf3] px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#247a3d]">
               <span className="h-2 w-2 rounded-full bg-[#2fad55]" />
               Call in progress

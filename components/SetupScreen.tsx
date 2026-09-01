@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import type { Prospect } from "@/types/conversation";
+import { GumletLogo } from "./GumletLogo";
 
 type SetupScreenProps = {
   initialProspect: Prospect;
@@ -51,9 +52,7 @@ export function SetupScreen({ initialProspect, onStartCall }: SetupScreenProps) 
     <main className="min-h-screen bg-[#f7f7fb] px-5 py-6 text-[#17121f] sm:px-8">
       <section className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col justify-center">
         <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6d35c7]">
-            Gumlet
-          </p>
+          <GumletLogo />
           <h1 className="mt-2 text-4xl font-semibold tracking-normal text-[#17121f] sm:text-5xl">
             Gumlet CallPilot
           </h1>
