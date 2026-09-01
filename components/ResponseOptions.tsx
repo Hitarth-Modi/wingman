@@ -1,14 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ConversationNode, ResponseSubmission } from "@/types/conversation";
+import type { AnswerRecord, ConversationNode, ResponseSubmission } from "@/types/conversation";
 
 type ResponseOptionsProps = {
   node: ConversationNode;
+  savedAnswer?: AnswerRecord;
   onSubmitResponse: (submission: ResponseSubmission) => void;
 };
 
-export function ResponseOptions({ node, onSubmitResponse }: ResponseOptionsProps) {
+export function ResponseOptions({ node, savedAnswer, onSubmitResponse }: ResponseOptionsProps) {
   const acknowledgementOption = useMemo(
     () => ({
       id: "continue",
@@ -20,10 +21,13 @@ export function ResponseOptions({ node, onSubmitResponse }: ResponseOptionsProps
     node.responseType === "acknowledgement" && (!node.options || node.options.length === 0)
       ? [acknowledgementOption]
       : (node.options ?? []);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [showOtherInput, setShowOtherInput] = useState(false);
-  const [otherText, setOtherText] = useState("");
+  const [selectedIds, setSelectedIds] = useState<string[]>(savedAnswer?.optionIds ?? []);
   const isMultiSelect = node.responseType === "multi_select";
+  const hasSavedOtherAnswer = options.some(
+    (option) => option.isOther && (savedAnswer?.optionIds ?? []).includes(option.id),
+  );
+  const [showOtherInput, setShowOtherInput] = useState(hasSavedOtherAnswer);
+  const [otherText, setOtherText] = useState(savedAnswer?.rawResponse ?? "");
   const selectedOther = options.some((option) => option.isOther && selectedIds.includes(option.id));
   const canContinue = isMultiSelect
     ? selectedIds.length > 0
@@ -92,7 +96,10 @@ export function ResponseOptions({ node, onSubmitResponse }: ResponseOptionsProps
               aria-pressed={selected}
               onClick={() => toggleOption(option.id)}
             >
-              {option.label}
+              <span className="flex items-center justify-between gap-3">
+                <span>{option.label}</span>
+                {selected ? <span aria-hidden="true">✓</span> : null}
+              </span>
             </button>
           );
         })}
@@ -125,7 +132,9 @@ export function ResponseOptions({ node, onSubmitResponse }: ResponseOptionsProps
 
       {!isMultiSelect && !showOtherInput ? (
         <div className="mt-4 text-sm text-[#746d7f]">
-          {node.responseType === "acknowledgement"
+          {savedAnswer
+            ? "This response is already recorded. Use the forward arrow to return to the next screen, or choose a different answer to branch from here."
+            : node.responseType === "acknowledgement"
             ? "Click Continue when you have delivered the line."
             : "Click the closest response to advance immediately."}
         </div>

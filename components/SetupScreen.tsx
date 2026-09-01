@@ -3,9 +3,18 @@
 import { FormEvent, useState } from "react";
 import type { Prospect } from "@/types/conversation";
 import { GumletLogo } from "./GumletLogo";
+import { NavigationControls } from "./NavigationControls";
+
+type NavigationProps = {
+  canGoBack: boolean;
+  canGoForward: boolean;
+  onBack: () => void;
+  onForward: () => void;
+};
 
 type SetupScreenProps = {
   initialProspect: Prospect;
+  navigation: NavigationProps;
   onStartCall: (prospect: Prospect) => void;
 };
 
@@ -28,7 +37,7 @@ const jobTitles = [
 
 const companySizes = ["1-50", "51-200", "201-500", "501-1,000", "1,000+"];
 
-export function SetupScreen({ initialProspect, onStartCall }: SetupScreenProps) {
+export function SetupScreen({ initialProspect, navigation, onStartCall }: SetupScreenProps) {
   const [prospect, setProspect] = useState(initialProspect);
   const unsupportedIndustry = prospect.industry && prospect.industry !== "ecommerce";
   const canStart = prospect.industry === "ecommerce" && Boolean(prospect.jobTitle);
@@ -50,6 +59,9 @@ export function SetupScreen({ initialProspect, onStartCall }: SetupScreenProps) 
 
   return (
     <main className="min-h-screen bg-[#f7f7fb] px-5 py-6 text-[#17121f] sm:px-8">
+      <div className="mx-auto flex max-w-6xl justify-end">
+        <NavigationControls {...navigation} />
+      </div>
       <section className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col justify-center">
         <div className="mb-8">
           <GumletLogo />

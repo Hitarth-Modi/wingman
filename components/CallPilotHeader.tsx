@@ -4,13 +4,20 @@ import { useEffect, useState } from "react";
 import type { CallState } from "@/types/conversation";
 import { formatIndustry } from "./formatters";
 import { GumletLogo } from "./GumletLogo";
+import { NavigationControls } from "./NavigationControls";
 
 type CallPilotHeaderProps = {
   callState: CallState;
+  navigation: {
+    canGoBack: boolean;
+    canGoForward: boolean;
+    onBack: () => void;
+    onForward: () => void;
+  };
   onEndCall: () => void;
 };
 
-export function CallPilotHeader({ callState, onEndCall }: CallPilotHeaderProps) {
+export function CallPilotHeader({ callState, navigation, onEndCall }: CallPilotHeaderProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const { prospect } = callState;
 
@@ -45,13 +52,16 @@ export function CallPilotHeader({ callState, onEndCall }: CallPilotHeaderProps) 
           </p>
         </div>
 
-        <button
-          className="h-10 rounded-md border border-[#d8d4e2] bg-white px-4 text-sm font-semibold text-[#332a42] transition hover:border-[#c7bfd6] hover:bg-[#fbfafc] focus:outline-none focus:ring-4 focus:ring-[#6d35c7]/15"
-          type="button"
-          onClick={onEndCall}
-        >
-          End Call
-        </button>
+        <div className="flex items-center gap-2">
+          <NavigationControls {...navigation} />
+          <button
+            className="h-10 rounded-md border border-[#d8d4e2] bg-white px-4 text-sm font-semibold text-[#332a42] transition hover:border-[#c7bfd6] hover:bg-[#fbfafc] focus:outline-none focus:ring-4 focus:ring-[#6d35c7]/15"
+            type="button"
+            onClick={onEndCall}
+          >
+            End Call
+          </button>
+        </div>
       </div>
     </header>
   );

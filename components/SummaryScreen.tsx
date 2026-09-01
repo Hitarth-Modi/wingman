@@ -5,19 +5,31 @@ import type { CallState } from "@/types/conversation";
 import { DemoRecommendation } from "./DemoRecommendation";
 import { formatIndustry } from "./formatters";
 import { GumletLogo } from "./GumletLogo";
+import { NavigationControls } from "./NavigationControls";
+
+type NavigationProps = {
+  canGoBack: boolean;
+  canGoForward: boolean;
+  onBack: () => void;
+  onForward: () => void;
+};
 
 type SummaryScreenProps = {
   callState: CallState;
+  navigation: NavigationProps;
   onStartNewCall: () => void;
 };
 
-export function SummaryScreen({ callState, onStartNewCall }: SummaryScreenProps) {
+export function SummaryScreen({ callState, navigation, onStartNewCall }: SummaryScreenProps) {
   const [showHistory, setShowHistory] = useState(false);
   const { prospect } = callState;
 
   return (
     <main className="min-h-screen bg-[#f7f7fb] px-5 py-6 text-[#17121f] sm:px-8">
       <section className="mx-auto max-w-5xl">
+        <div className="mb-4 flex justify-end">
+          <NavigationControls {...navigation} />
+        </div>
         <div className="rounded-lg border border-[#e4e1eb] bg-white p-6 shadow-[0_16px_44px_rgba(33,24,55,0.08)] sm:p-8">
           <GumletLogo />
           <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-[#6d35c7]">

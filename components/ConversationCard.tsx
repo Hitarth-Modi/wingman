@@ -1,16 +1,17 @@
 "use client";
 
-import type { ConversationNode, ResponseSubmission } from "@/types/conversation";
+import type { AnswerRecord, ConversationNode, ResponseSubmission } from "@/types/conversation";
 import { labelForAction } from "@/lib/conversationEngine";
 import { DemoRecommendation } from "./DemoRecommendation";
 import { ResponseOptions } from "./ResponseOptions";
 
 type ConversationCardProps = {
   node: ConversationNode | null;
+  savedAnswer?: AnswerRecord;
   onSubmitResponse: (submission: ResponseSubmission) => void;
 };
 
-export function ConversationCard({ node, onSubmitResponse }: ConversationCardProps) {
+export function ConversationCard({ node, savedAnswer, onSubmitResponse }: ConversationCardProps) {
   if (!node) {
     return (
       <article className="min-h-[620px] rounded-lg border border-[#e4e1eb] bg-white p-8">
@@ -78,7 +79,12 @@ export function ConversationCard({ node, onSubmitResponse }: ConversationCardPro
 
       {isDemo ? <DemoRecommendation features={node.metadata?.features ?? []} /> : null}
 
-      <ResponseOptions node={node} onSubmitResponse={onSubmitResponse} />
+      <ResponseOptions
+        key={`${node.id}-${savedAnswer?.timestamp ?? "new"}`}
+        node={node}
+        savedAnswer={savedAnswer}
+        onSubmitResponse={onSubmitResponse}
+      />
     </article>
   );
 }
