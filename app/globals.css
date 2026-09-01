@@ -29,6 +29,10 @@ input {
   font: inherit;
 }
 
+button:not(:disabled) {
+  cursor: pointer;
+}
+
 ::selection {
   background: #e8ddff;
   color: #2b1748;
