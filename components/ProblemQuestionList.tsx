@@ -1,9 +1,11 @@
 "use client";
 
 import type { ProblemQuestion } from "@/types/playbook";
+import type { IndustryPlaybook } from "@/types/playbook";
 
 type ProblemQuestionListProps = {
   problems: ProblemQuestion[];
+  playbook: IndustryPlaybook | null;
   selectedProblemIds: string[];
   onToggleProblem: (problemId: string) => void;
   onNext: () => void;
@@ -11,6 +13,7 @@ type ProblemQuestionListProps = {
 
 export function ProblemQuestionList({
   problems,
+  playbook,
   selectedProblemIds,
   onToggleProblem,
   onNext,
@@ -27,6 +30,24 @@ export function ProblemQuestionList({
           Tick what the prospect responds to.
         </h2>
       </div>
+
+      {playbook ? (
+        <aside className="rounded-lg border border-[#e0d2c0] bg-[#fffaf3] p-4">
+          <p className="text-sm font-semibold leading-6 text-[#4f463a]">
+            {playbook.situation}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {playbook.challenges.map((challenge) => (
+              <span
+                key={challenge}
+                className="rounded-full border border-[#ded0be] bg-white px-3 py-1 text-xs font-semibold text-[#665d52]"
+              >
+                {challenge}
+              </span>
+            ))}
+          </div>
+        </aside>
+      ) : null}
 
       <div className="grid gap-4">
         {problems.map((problem) => {
@@ -54,8 +75,13 @@ export function ProblemQuestionList({
               </button>
 
               {isSelected ? (
-                <div className="rounded-b-lg bg-[#f4f3f3] px-6 py-5 text-xl font-semibold leading-8">
-                  {problem.solution}
+                <div className="rounded-b-lg bg-[#f4f3f3] px-6 py-5">
+                  {problem.note ? (
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#8a4fff]">
+                      {problem.note}
+                    </p>
+                  ) : null}
+                  <p className="text-xl font-semibold leading-8">{problem.solution}</p>
                 </div>
               ) : null}
             </article>

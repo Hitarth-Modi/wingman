@@ -1,4 +1,4 @@
-import type { IndustryKey, ProblemQuestion } from "@/types/playbook";
+import type { IndustryKey, IndustryPlaybook, ProblemQuestion } from "@/types/playbook";
 
 export const industryLabels: Record<IndustryKey, string> = {
   ecommerce: "E-commerce",
@@ -6,153 +6,371 @@ export const industryLabels: Record<IndustryKey, string> = {
   b2c: "B2C / Consumer Apps",
 };
 
-export const problemPlaybooks: Record<IndustryKey, ProblemQuestion[]> = {
-  ecommerce: [
-    {
-      id: "organic-traffic-drop",
-      industry: "ecommerce",
-      question: "Are you seeing a drop in organic traffic on your PDPs?",
-      solution:
-        "For Snapdeal, Gumlet increased traffic by 60% to 100 million organic visitors a month.",
-      benefits: [
-        "Gumlet improves your Web Vitals to at least above 80.",
-        "Your TTFB, LCP, and FCP are improved with instant-loading images and faster page loads.",
-      ],
-      features: [
-        "Best image compression in the industry",
-        "Auto-resize for mobile",
-        "Serving images in modern formats like AVIF",
-      ],
-    },
-    {
-      id: "core-web-vitals",
-      industry: "ecommerce",
-      question: "Is your marketing team complaining about Core Web Vitals?",
-      solution:
-        "Gumlet helps improve Core Web Vitals by optimizing images automatically and delivering the right format, size, and quality for every user.",
-      benefits: [
-        "Marketing teams get a stronger page-experience story without waiting on manual engineering work.",
-        "Pages can become lighter and faster across product, listing, and campaign traffic.",
-      ],
-      features: [
-        "Automatic image optimization",
-        "Responsive image resizing",
-        "Fast media delivery",
-      ],
-    },
-    {
-      id: "high-bounce-rates",
-      industry: "ecommerce",
-      question: "Do you feel bounce rates are high on your PDPs?",
-      solution:
-        "Gumlet reduces heavy media delivery on product pages so shoppers can see key product content faster.",
-      benefits: [
-        "Product pages feel quicker on mobile and slower networks.",
-        "Teams can improve page experience without maintaining many manual image variants.",
-      ],
-      features: [
-        "Device-based resizing",
-        "Image compression",
-        "Lazy-loading friendly media delivery",
-      ],
-    },
-    {
-      id: "product-video-hero",
-      industry: "ecommerce",
-      question: "Have you tried putting video as product hero?",
-      solution:
-        "Gumlet can help teams use product video without making PDPs heavy or hard to manage.",
-      benefits: [
-        "Teams can test richer product storytelling while keeping media performance under control.",
-        "Video workflows can be handled with less manual processing and vendor switching.",
-      ],
-      features: [
-        "Video optimization",
-        "Adaptive video delivery",
-        "Centralized media workflow",
-      ],
-    },
-  ],
-  edtech: [
-    {
-      id: "lecture-video-buffering",
-      industry: "edtech",
-      question: "Are learners complaining about lecture videos buffering or loading slowly?",
-      solution:
-        "Gumlet helps optimize and deliver course video so students get a smoother learning experience across devices and networks.",
-      benefits: [
-        "Fewer interruptions during high-intent learning sessions.",
-        "Better experience for mobile learners and lower-bandwidth regions.",
-      ],
-      features: ["Adaptive video delivery", "Video optimization", "Fast media delivery"],
-    },
-    {
-      id: "course-image-management",
-      industry: "edtech",
-      question: "Is your team manually resizing course thumbnails or learning assets?",
-      solution:
-        "Gumlet automates image transformations so teams can manage course media without repetitive manual work.",
-      benefits: [
-        "Content and product teams can publish faster.",
-        "Engineering effort moves away from routine media resizing.",
-      ],
-      features: ["Automatic image optimization", "Responsive resizing", "Transformation rules"],
-    },
-    {
-      id: "multi-device-learning",
-      industry: "edtech",
-      question: "Do your learning pages need to perform well across laptop, tablet, and mobile?",
-      solution:
-        "Gumlet serves media in the right size and format for the learner's device.",
-      benefits: [
-        "Course pages stay lighter across form factors.",
-        "Learners get a more consistent experience when switching devices.",
-      ],
-      features: ["Device-based resizing", "Modern image formats", "Fast media delivery"],
-    },
-  ],
-  b2c: [
-    {
-      id: "app-media-load-time",
-      industry: "b2c",
-      question: "Are image-heavy screens slowing down your app or website experience?",
-      solution:
-        "Gumlet optimizes media delivery so consumer journeys feel faster and lighter.",
-      benefits: [
-        "Users reach key screens with less waiting.",
-        "Teams can reduce the effort spent tuning media for every surface.",
-      ],
-      features: ["Image compression", "Responsive resizing", "Modern image formats"],
-    },
-    {
-      id: "campaign-landing-speed",
-      industry: "b2c",
-      question: "Do campaign landing pages slow down when they include rich media?",
-      solution:
-        "Gumlet helps keep promotional pages fast by serving optimized visual assets automatically.",
-      benefits: [
-        "Campaign pages can stay visually rich without becoming heavy.",
-        "Growth teams get faster experiments with fewer media handoffs.",
-      ],
-      features: ["Automatic optimization", "Fast delivery", "Transformation presets"],
-    },
-    {
-      id: "media-ops-growth",
-      industry: "b2c",
-      question: "Is your media catalog growing faster than your team can manage?",
-      solution:
-        "Gumlet centralizes common media operations so teams do not need scattered scripts and tools.",
-      benefits: [
-        "Less operational drag as asset volume grows.",
-        "More consistent media behavior across user journeys.",
-      ],
-      features: ["Centralized media workflow", "Transformation rules", "Delivery optimization"],
-    },
-  ],
+const ecommerceTrafficBenefits = [
+  "Gumlet improves your Web Vitals to at least above 80.",
+  "Your TTFB, LCP, and FCP are improved with instant-loading images and faster page loads.",
+];
+
+const ecommerceTrafficFeatures = [
+  "Best image compression in the industry",
+  "Auto-resize for mobile",
+  "Serving images in modern formats like AVIF",
+];
+
+const ecommerceVideoBenefits = [
+  "Gumlet videos have an instant start time.",
+  "Gumlet's player loads videos quickly to ensure a premium shopping experience.",
+];
+
+const ecommerceVideoFeatures = [
+  "Fast video load times backed by years of R&D",
+  "UGC to engaging lead magnets with CTAs and built-in lead-gen forms",
+  "Customizable, fast, light player with zero-buffer, instant-loading videos",
+];
+
+const ecommerceLoadTimeBenefits = [
+  "Gumlet ensures images load superfast.",
+  "Since images usually take up to 70% of page-load data, faster media leads to practically zero waiting time for shoppers on PDPs.",
+];
+
+const ecommerceCatalogBenefits = [
+  "Gumlet automates image processing and compression.",
+  "Automatic optimization and resizing happen based on the devices used to view your images.",
+  "Gumlet offers AI tools to help images meet catalog guidelines without manual edits.",
+];
+
+const ecommerceCatalogFeatures = [
+  "Auto-resize images for any device",
+  "High compression",
+  "Auto format conversion",
+  "AI background removal",
+  "Face crop",
+  "Smart crop",
+];
+
+const ecommerceCostBenefits = [
+  "Gumlet reduces image and video file sizes by an average of 40%, cutting bandwidth usage.",
+  "Five different services and APIs are streamlined into one platform that costs at least 30% less than the others.",
+];
+
+const edtechPiracyBenefits = [
+  "Easiest to implement multi-DRM.",
+  "Gumlet caps resolution for devices with low security so high-resolution videos are not screen-recorded while learners retain access.",
+  "In addition to DRM, Gumlet has other features that strengthen content security.",
+];
+
+const edtechPiracyFeatures = [
+  "Multi-DRM with Widevine and FairPlay protection",
+  "Dynamic watermarking",
+  "Geo-blocking",
+  "Signed URLs",
+  "Allowed referrers",
+  "Password protection",
+];
+
+const edtechPlaybackBenefits = [
+  "Buffer-free streaming across all devices and network types.",
+  "Barely noticeable load time on DRM-protected videos.",
+];
+
+const edtechPlaybackFeatures = [
+  "Best media compression in the world",
+  "Fast video load times even with DRM",
+  "AWS CloudFront CDN for worldwide media delivery",
+];
+
+const edtechCostBenefits = [
+  "At least 40% reduction in bandwidth usage.",
+  "Free transcoding helps reduce expenses there.",
+  "After Gumlet, you do not need engineering effort on the video pipeline.",
+];
+
+const edtechStackBenefits = [
+  "Five different services and APIs are streamlined into one platform that costs at least 30% less than the others.",
+  "No need to configure every optimization manually because the best optimizations are built in.",
+];
+
+const b2cCostBenefits = [
+  "Gumlet reduces image and video sizes by 30% without affecting quality.",
+];
+
+const b2cCostFeatures = [
+  "Best media compression in the world",
+  "Smallest file sizes without affecting visual quality",
+  "Automatic format conversion",
+  "Compression levels based on the user's network speed",
+];
+
+const b2cVideoBenefits = [
+  "Gumlet videos have an instant start time.",
+  "Gumlet's player loads videos quickly.",
+];
+
+const b2cPeakBenefits = [
+  "Helps deliver seven 9s uptime SLA (99.99999%) even during traffic spikes.",
+  "Gumlet media loads 40% faster.",
+];
+
+export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
+  ecommerce: {
+    situation:
+      "A lot of e-commerce sites compete for the same buyers' attention and need to win traffic, conversion, and retention.",
+    challenges: [
+      "Getting traffic is hard",
+      "Ad spend is too costly",
+      "Converting incoming traffic is a constant battle",
+      "Retaining buyers matters so repeat purchases come directly to the brand",
+    ],
+    problems: [
+      {
+        id: "ecom-organic-traffic-drop",
+        industry: "ecommerce",
+        question: "Are you seeing a drop in organic traffic on your PDPs?",
+        solution:
+          "For Snapdeal, Gumlet increased traffic by 60% to 100 million organic visitors a month.",
+        benefits: ecommerceTrafficBenefits,
+        features: ecommerceTrafficFeatures,
+      },
+      {
+        id: "ecom-core-web-vitals",
+        industry: "ecommerce",
+        question: "Is your marketing team complaining about Core Web Vitals?",
+        solution:
+          "For Snapdeal, Gumlet increased traffic by 60% to 100 million organic visitors a month.",
+        benefits: ecommerceTrafficBenefits,
+        features: ecommerceTrafficFeatures,
+      },
+      {
+        id: "ecom-bounce-pdp",
+        industry: "ecommerce",
+        question: "Do you feel bounce rates are high on your PDPs?",
+        solution:
+          "Gumlet can help you hook users with videos in the product hero, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
+        benefits: ecommerceVideoBenefits,
+        features: ecommerceVideoFeatures,
+      },
+      {
+        id: "ecom-video-hero",
+        industry: "ecommerce",
+        question: "Have you tried putting video as product hero?",
+        solution:
+          "Gumlet can help you hook users with videos in the product hero, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
+        benefits: ecommerceVideoBenefits,
+        features: ecommerceVideoFeatures,
+      },
+      {
+        id: "ecom-peer-load-times",
+        industry: "ecommerce",
+        question: "Do you think you rank first when it comes to load times compared to your peers?",
+        solution:
+          "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
+        benefits: ecommerceLoadTimeBenefits,
+        features: ["Best media compression in the world with at least 40% less media weight"],
+      },
+      {
+        id: "ecom-image-wait-time",
+        industry: "ecommerce",
+        question: "How long do shoppers wait for your product images to load?",
+        solution:
+          "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
+        benefits: ecommerceLoadTimeBenefits,
+        features: ["Best media compression in the world with at least 40% less media weight"],
+      },
+      {
+        id: "ecom-catalog-resize",
+        industry: "ecommerce",
+        question: "Do your catalog teams need to resize images before uploading them into the platform?",
+        solution:
+          "Gumlet delivers an excellent shopping experience on any device or network, regardless of the size of the original image.",
+        benefits: ecommerceCatalogBenefits,
+        features: ecommerceCatalogFeatures,
+      },
+      {
+        id: "ecom-seasonal-effort",
+        industry: "ecommerce",
+        question: "How much does the required effort increase during sales and new-launch seasons?",
+        solution:
+          "Gumlet delivers an excellent shopping experience on any device or network, regardless of the size of the original image.",
+        benefits: ecommerceCatalogBenefits,
+        features: ecommerceCatalogFeatures,
+      },
+      {
+        id: "ecom-cloud-cdn-spend",
+        industry: "ecommerce",
+        question: "How much do you spend on cloud services and CDN usage?",
+        solution:
+          "Gumlet eliminates the need for 5+ cloud services. Tata 1mg reduced cloud costs by 56% by implementing Gumlet.",
+        benefits: ecommerceCostBenefits,
+        features: [
+          "Best media compression in the world",
+          "Predictable and simple pricing",
+          "End-to-end solution",
+        ],
+        note: "Only for large e-commerce prospects.",
+      },
+    ],
+  },
+  edtech: {
+    situation:
+      "EdTech platforms often want to grow subscribers, improve profitability, and protect paid course content.",
+    challenges: [
+      "Get more subscribers",
+      "Improve profitability",
+      "Prevent content piracy",
+    ],
+    problems: [
+      {
+        id: "edtech-course-piracy",
+        industry: "edtech",
+        question: "Are your courses being pirated? Has that been a recurring problem?",
+        solution: "Prevent downloads, stop screen recording, and reduce password sharing.",
+        benefits: edtechPiracyBenefits,
+        features: edtechPiracyFeatures,
+      },
+      {
+        id: "edtech-telegram-sharing",
+        industry: "edtech",
+        question: "Have you noticed your paid lessons being shared on other platforms, such as Telegram?",
+        solution: "Prevent downloads, stop screen recording, and reduce password sharing.",
+        benefits: edtechPiracyBenefits,
+        features: edtechPiracyFeatures,
+      },
+      {
+        id: "edtech-mobile-playback",
+        industry: "edtech",
+        question: "Are mobile users complaining about poor video loading or playback?",
+        solution:
+          "Gumlet improved video load times for Career Launcher even after implementing DRM.",
+        benefits: edtechPlaybackBenefits,
+        features: edtechPlaybackFeatures,
+      },
+      {
+        id: "edtech-drm-load",
+        industry: "edtech",
+        question: "Do your DRM-protected videos tend to load more slowly than others?",
+        solution:
+          "Gumlet improved video load times for Career Launcher even after implementing DRM.",
+        benefits: edtechPlaybackBenefits,
+        features: edtechPlaybackFeatures,
+      },
+      {
+        id: "edtech-cloud-costs",
+        industry: "edtech",
+        question: "Is your organization looking to reduce cloud costs?",
+        solution:
+          "Gumlet significantly reduces CDN and cloud costs by more than 30%, as seen for EdTech clients such as Career Launcher.",
+        benefits: edtechCostBenefits,
+        features: [
+          "Best media compression in the world",
+          "Predictable and scale-friendly pricing",
+          "GPU-based video transcoding for faster processing and lower costs",
+        ],
+      },
+      {
+        id: "edtech-video-pipeline-services",
+        industry: "edtech",
+        question: "How many cloud services are you paying for in your video pipeline?",
+        solution:
+          "Gumlet streamlines your tech stack, giving you a single line item and platform for your team to work with.",
+        benefits: edtechStackBenefits,
+        features: [
+          "End-to-end solution for storage, security, and hosting",
+          "Media infrastructure replacement with minimal friction",
+        ],
+        note: "Best for large EdTech prospects.",
+      },
+    ],
+  },
+  b2c: {
+    situation:
+      "Consumer apps need to convert new visitors, make the most revenue during big promotions, improve profitability, and retain users.",
+    challenges: [
+      "Convert more new visitors into users",
+      "Make the most revenue during big promotions",
+      "Improve profitability",
+      "Retain users so they return directly instead of searching elsewhere",
+    ],
+    problems: [
+      {
+        id: "b2c-cloud-spend-profit",
+        industry: "b2c",
+        question: "Do you feel the cloud spend is hurting profits?",
+        solution: "Gumlet has cut cloud spend at scale for Spinny by 62%.",
+        benefits: b2cCostBenefits,
+        features: b2cCostFeatures,
+      },
+      {
+        id: "b2c-cloud-spend-priority",
+        industry: "b2c",
+        question: "Is reducing cloud spend a priority?",
+        solution: "Gumlet has cut cloud spend at scale for Spinny by 62%.",
+        benefits: b2cCostBenefits,
+        features: b2cCostFeatures,
+      },
+      {
+        id: "b2c-cdn-consumption",
+        industry: "b2c",
+        question: "Has your CDN consumption increased in the past few quarters?",
+        solution: "Gumlet has cut cloud spend at scale for Spinny by 62%.",
+        benefits: b2cCostBenefits,
+        features: b2cCostFeatures,
+      },
+      {
+        id: "b2c-landing-bounce",
+        industry: "b2c",
+        question: "Do you feel bounce rates are high on your landing pages?",
+        solution:
+          "Gumlet will help you hook users with videos in the first fold, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
+        benefits: b2cVideoBenefits,
+        features: ["Fast video load times backed by years of R&D"],
+      },
+      {
+        id: "b2c-first-fold-video",
+        industry: "b2c",
+        question: "Have you tried putting videos on the first fold on your landing pages to increase engagement?",
+        solution:
+          "Gumlet will help you hook users with videos in the first fold, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
+        benefits: b2cVideoBenefits,
+        features: ["Fast video load times backed by years of R&D"],
+      },
+      {
+        id: "b2c-peak-loading",
+        industry: "b2c",
+        question: "Do your users complain about loading issues during peak sales?",
+        solution:
+          "Gumlet helps pages load faster and maintain performance reliability during sales and launches at high scale.",
+        benefits: b2cPeakBenefits,
+        features: [
+          "Multi-region failover",
+          "Multi-CDN setup",
+          "Compression",
+          "Load-time optimization built from years of engineering work",
+        ],
+      },
+      {
+        id: "b2c-peak-cdn-performance",
+        industry: "b2c",
+        question: "Do you face CDN performance issues during peak traffic times?",
+        solution:
+          "Gumlet helps pages load faster and maintain performance reliability during sales and launches at high scale.",
+        benefits: b2cPeakBenefits,
+        features: [
+          "Multi-region failover",
+          "Multi-CDN setup",
+          "Compression",
+          "Load-time optimization built from years of engineering work",
+        ],
+      },
+    ],
+  },
 };
 
+export function getPlaybookForIndustry(industry: IndustryKey | "") {
+  return industry ? problemPlaybooks[industry] : null;
+}
+
 export function getProblemsForIndustry(industry: IndustryKey | "") {
-  return industry ? problemPlaybooks[industry] : [];
+  return getPlaybookForIndustry(industry)?.problems ?? [];
 }
 
 export function getSelectedProblems(industry: IndustryKey | "", selectedProblemIds: string[]) {

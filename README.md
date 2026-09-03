@@ -31,13 +31,12 @@ The app opens with a single industry selection step. Choose `E-commerce`, `EdTec
 - Deduplicated features-to-demo screen.
 - Back and forward arrows across the flow.
 - Layout tuned for a half-screen sales-call companion view.
-- Local structured playbook data that can later be replaced with Notion content.
+- Local structured playbook data populated from the shared Notion/PDF export.
 
 ## Intentionally Mocked
 
-- Problem, solution, benefit, and feature content is local mock data.
-- The Snapdeal proof line is taken from the supplied mock screenshot.
-- Notion is not connected yet.
+- Problem, solution, benefit, and feature content is stored locally in TypeScript.
+- Notion is not connected as a live data source yet.
 - No data persists after refresh.
 
 ## Not Built Yet

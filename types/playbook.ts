@@ -9,6 +9,13 @@ export type ProblemQuestion = {
   solution: string;
   benefits: string[];
   features: string[];
+  note?: string;
+};
+
+export type IndustryPlaybook = {
+  situation: string;
+  challenges: string[];
+  problems: ProblemQuestion[];
 };
 
 export type PilotState = {
