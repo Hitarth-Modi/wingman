@@ -29,7 +29,8 @@ test("server-renders Gumlet CallPilot setup", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Gumlet CallPilot<\/title>/i);
-  assert.match(html, /Your live guide for first sales calls/);
-  assert.match(html, /Start Call/);
+  assert.match(html, /Choose the prospect industry/);
+  assert.match(html, /E-commerce/);
+  assert.match(html, /EdTech/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
