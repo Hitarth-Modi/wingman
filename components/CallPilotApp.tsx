@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import {
-  getPlaybookForIndustry,
   getProblemsForIndustry,
   getSelectedProblems,
   getUniqueFeatures,
@@ -26,10 +25,6 @@ export function CallPilotApp() {
   const [futureStates, setFutureStates] = useState<PilotState[]>([]);
   const problems = useMemo(
     () => getProblemsForIndustry(pilotState.industry),
-    [pilotState.industry],
-  );
-  const playbook = useMemo(
-    () => getPlaybookForIndustry(pilotState.industry),
     [pilotState.industry],
   );
   const selectedProblems = useMemo(
@@ -122,7 +117,6 @@ export function CallPilotApp() {
       {pilotState.step === "problems" ? (
         <ProblemQuestionList
           problems={problems}
-          playbook={playbook}
           selectedProblemIds={pilotState.selectedProblemIds}
           onToggleProblem={toggleProblem}
           onNext={() => goToStep("benefits")}

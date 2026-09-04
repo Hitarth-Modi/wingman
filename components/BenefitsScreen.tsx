@@ -20,8 +20,8 @@ export function BenefitsScreen({ problems, onNext }: BenefitsScreenProps) {
       <div className="grid gap-5">
         {problems.map((problem) => (
           <article key={problem.id} className="rounded-lg bg-white p-5 shadow-[0_10px_30px_rgba(54,42,27,0.08)]">
-            <p className="text-2xl font-semibold leading-tight">{problem.question}</p>
-            <p className="mt-2 text-2xl font-semibold leading-tight">{problem.solution}</p>
+            <p className="text-xl font-semibold leading-tight sm:text-2xl">{problem.question}</p>
+            <p className="mt-2 text-xl font-semibold leading-tight sm:text-2xl">{problem.solution}</p>
             <div className="mt-12">
               <h3 className="text-2xl font-semibold">We / Gumlet does this by</h3>
               <ul className="mt-3 list-disc space-y-2 pl-7 text-2xl font-semibold leading-tight">

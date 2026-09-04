@@ -1,11 +1,9 @@
 "use client";
 
 import type { ProblemQuestion } from "@/types/playbook";
-import type { IndustryPlaybook } from "@/types/playbook";
 
 type ProblemQuestionListProps = {
   problems: ProblemQuestion[];
-  playbook: IndustryPlaybook | null;
   selectedProblemIds: string[];
   onToggleProblem: (problemId: string) => void;
   onNext: () => void;
@@ -13,7 +11,6 @@ type ProblemQuestionListProps = {
 
 export function ProblemQuestionList({
   problems,
-  playbook,
   selectedProblemIds,
   onToggleProblem,
   onNext,
@@ -31,24 +28,6 @@ export function ProblemQuestionList({
         </h2>
       </div>
 
-      {playbook ? (
-        <aside className="rounded-lg border border-[#e0d2c0] bg-[#fffaf3] p-4">
-          <p className="text-sm font-semibold leading-6 text-[#4f463a]">
-            {playbook.situation}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {playbook.challenges.map((challenge) => (
-              <span
-                key={challenge}
-                className="rounded-full border border-[#ded0be] bg-white px-3 py-1 text-xs font-semibold text-[#665d52]"
-              >
-                {challenge}
-              </span>
-            ))}
-          </div>
-        </aside>
-      ) : null}
-
       <div className="grid gap-4">
         {problems.map((problem) => {
           const isSelected = selected.has(problem.id);
@@ -58,7 +37,7 @@ export function ProblemQuestionList({
               <button
                 aria-expanded={isSelected}
                 aria-pressed={isSelected}
-                className={`flex min-h-20 w-full items-center gap-4 rounded-lg px-5 py-4 text-left text-2xl font-semibold leading-tight transition focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/20 ${
+                className={`flex min-h-24 w-full items-center gap-5 rounded-lg px-5 py-5 text-left text-[1.7rem] font-semibold leading-tight transition focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/20 sm:text-[2rem] ${
                   isSelected ? "bg-[#e5d7c1]" : "bg-[#e8dcc9] hover:bg-[#e3d4bd]"
                 }`}
                 onClick={() => onToggleProblem(problem.id)}
