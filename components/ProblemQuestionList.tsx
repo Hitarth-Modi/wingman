@@ -37,14 +37,14 @@ export function ProblemQuestionList({
               <button
                 aria-expanded={isSelected}
                 aria-pressed={isSelected}
-                className={`flex min-h-24 w-full items-center gap-5 rounded-lg px-5 py-5 text-left text-[1.7rem] font-semibold leading-tight transition focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/20 sm:text-[2rem] ${
+                className={`flex min-h-28 w-full items-center gap-6 rounded-lg px-6 py-6 text-left text-[2rem] font-semibold leading-tight transition focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/20 sm:text-[2.35rem] ${
                   isSelected ? "bg-[#e5d7c1]" : "bg-[#e8dcc9] hover:bg-[#e3d4bd]"
                 }`}
                 onClick={() => onToggleProblem(problem.id)}
                 type="button"
               >
                 <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white ${
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-2xl font-bold text-white ${
                     isSelected ? "bg-[#8a4fff]" : "bg-[#a7a7a7]"
                   }`}
                 >
