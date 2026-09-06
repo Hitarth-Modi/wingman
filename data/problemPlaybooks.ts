@@ -1,4 +1,11 @@
-import type { IndustryKey, IndustryPlaybook, ProblemQuestion } from "@/types/playbook";
+import type {
+  DemoFeature,
+  DemoFeatureBucket,
+  DemoFeatureInput,
+  IndustryKey,
+  IndustryPlaybook,
+  ProblemQuestion,
+} from "@/types/playbook";
 
 export const industryLabels: Record<IndustryKey, string> = {
   ecommerce: "E-commerce",
@@ -6,15 +13,24 @@ export const industryLabels: Record<IndustryKey, string> = {
   b2c: "B2C / Consumer Apps",
 };
 
+const demoFeature = (label: string, bucket?: DemoFeatureBucket): DemoFeatureInput => ({
+  label,
+  bucket,
+});
+
+const dashboardFeature = (label: string) => demoFeature(label, "dashboard");
+const reportFeature = (label: string) => demoFeature(label, "report");
+const mentionFeature = (label: string) => demoFeature(label, "mention");
+
 const ecommerceTrafficBenefits = [
   "Gumlet improves your Web Vitals to at least above 80.",
   "Your TTFB, LCP, and FCP are improved with instant-loading images and faster page loads.",
 ];
 
 const ecommerceTrafficFeatures = [
-  "Best image compression in the industry",
-  "Auto-resize for mobile",
-  "Serving images in modern formats like AVIF",
+  reportFeature("Best image compression in the industry"),
+  dashboardFeature("Auto-resize for mobile"),
+  dashboardFeature("Serving images in modern formats like AVIF"),
 ];
 
 const ecommerceVideoBenefits = [
@@ -23,9 +39,9 @@ const ecommerceVideoBenefits = [
 ];
 
 const ecommerceVideoFeatures = [
-  "Fast video load times backed by years of R&D",
-  "UGC to engaging lead magnets with CTAs and built-in lead-gen forms",
-  "Customizable, fast, light player with zero-buffer, instant-loading videos",
+  reportFeature("Fast video load times backed by years of R&D"),
+  dashboardFeature("UGC to engaging lead magnets with CTAs and built-in lead-gen forms"),
+  dashboardFeature("Customizable, fast, light player with zero-buffer, instant-loading videos"),
 ];
 
 const ecommerceLoadTimeBenefits = [
@@ -40,12 +56,12 @@ const ecommerceCatalogBenefits = [
 ];
 
 const ecommerceCatalogFeatures = [
-  "Auto-resize images for any device",
-  "High compression",
-  "Auto format conversion",
-  "AI background removal",
-  "Face crop",
-  "Smart crop",
+  dashboardFeature("Auto-resize images for any device"),
+  reportFeature("High compression"),
+  dashboardFeature("Auto format conversion"),
+  dashboardFeature("AI background removal"),
+  dashboardFeature("Face crop"),
+  dashboardFeature("Smart crop"),
 ];
 
 const ecommerceCostBenefits = [
@@ -60,12 +76,12 @@ const edtechPiracyBenefits = [
 ];
 
 const edtechPiracyFeatures = [
-  "Multi-DRM with Widevine and FairPlay protection",
-  "Dynamic watermarking",
-  "Geo-blocking",
-  "Signed URLs",
-  "Allowed referrers",
-  "Password protection",
+  dashboardFeature("Multi-DRM with Widevine and FairPlay protection"),
+  dashboardFeature("Dynamic watermarking"),
+  dashboardFeature("Geo-blocking"),
+  dashboardFeature("Signed URLs"),
+  dashboardFeature("Allowed referrers"),
+  dashboardFeature("Password protection"),
 ];
 
 const edtechPlaybackBenefits = [
@@ -74,9 +90,9 @@ const edtechPlaybackBenefits = [
 ];
 
 const edtechPlaybackFeatures = [
-  "Best media compression in the world",
-  "Fast video load times even with DRM",
-  "AWS CloudFront CDN for worldwide media delivery",
+  reportFeature("Best media compression in the world"),
+  reportFeature("Fast video load times even with DRM"),
+  mentionFeature("AWS CloudFront CDN for worldwide media delivery"),
 ];
 
 const edtechCostBenefits = [
@@ -95,10 +111,10 @@ const b2cCostBenefits = [
 ];
 
 const b2cCostFeatures = [
-  "Best media compression in the world",
-  "Smallest file sizes without affecting visual quality",
-  "Automatic format conversion",
-  "Compression levels based on the user's network speed",
+  reportFeature("Best media compression in the world"),
+  reportFeature("Smallest file sizes without affecting visual quality"),
+  dashboardFeature("Automatic format conversion"),
+  dashboardFeature("Compression levels based on the user's network speed"),
 ];
 
 const b2cVideoBenefits = [
@@ -165,7 +181,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
         solution:
           "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
         benefits: ecommerceLoadTimeBenefits,
-        features: ["Best media compression in the world with at least 40% less media weight"],
+        features: [
+          reportFeature("Best media compression in the world with at least 40% less media weight"),
+        ],
       },
       {
         id: "ecom-image-wait-time",
@@ -174,7 +192,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
         solution:
           "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
         benefits: ecommerceLoadTimeBenefits,
-        features: ["Best media compression in the world with at least 40% less media weight"],
+        features: [
+          reportFeature("Best media compression in the world with at least 40% less media weight"),
+        ],
       },
       {
         id: "ecom-catalog-resize",
@@ -202,9 +222,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet eliminates the need for 5+ cloud services. Tata 1mg reduced cloud costs by 56% by implementing Gumlet.",
         benefits: ecommerceCostBenefits,
         features: [
-          "Best media compression in the world",
-          "Predictable and simple pricing",
-          "End-to-end solution",
+          reportFeature("Best media compression in the world"),
+          mentionFeature("Predictable and simple pricing"),
+          mentionFeature("End-to-end solution"),
         ],
         note: "Only for large e-commerce prospects.",
       },
@@ -261,9 +281,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet significantly reduces CDN and cloud costs by more than 30%, as seen for EdTech clients such as Career Launcher.",
         benefits: edtechCostBenefits,
         features: [
-          "Best media compression in the world",
-          "Predictable and scale-friendly pricing",
-          "GPU-based video transcoding for faster processing and lower costs",
+          reportFeature("Best media compression in the world"),
+          mentionFeature("Predictable and scale-friendly pricing"),
+          mentionFeature("GPU-based video transcoding for faster processing and lower costs"),
         ],
       },
       {
@@ -274,8 +294,8 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet streamlines your tech stack, giving you a single line item and platform for your team to work with.",
         benefits: edtechStackBenefits,
         features: [
-          "End-to-end solution for storage, security, and hosting",
-          "Media infrastructure replacement with minimal friction",
+          mentionFeature("End-to-end solution for storage, security, and hosting"),
+          mentionFeature("Media infrastructure replacement with minimal friction"),
         ],
         note: "Best for large EdTech prospects.",
       },
@@ -322,7 +342,7 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
         solution:
           "Gumlet will help you hook users with videos in the first fold, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
         benefits: b2cVideoBenefits,
-        features: ["Fast video load times backed by years of R&D"],
+        features: [reportFeature("Fast video load times backed by years of R&D")],
       },
       {
         id: "b2c-first-fold-video",
@@ -331,7 +351,7 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
         solution:
           "Gumlet will help you hook users with videos in the first fold, retaining their attention and reducing bounce rates. Gumlet also increased add-to-carts for Snapdeal by 15%.",
         benefits: b2cVideoBenefits,
-        features: ["Fast video load times backed by years of R&D"],
+        features: [reportFeature("Fast video load times backed by years of R&D")],
       },
       {
         id: "b2c-peak-loading",
@@ -341,10 +361,10 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet helps pages load faster and maintain performance reliability during sales and launches at high scale.",
         benefits: b2cPeakBenefits,
         features: [
-          "Multi-region failover",
-          "Multi-CDN setup",
-          "Compression",
-          "Load-time optimization built from years of engineering work",
+          dashboardFeature("Multi-region failover"),
+          dashboardFeature("Multi-CDN setup"),
+          reportFeature("Compression"),
+          reportFeature("Load-time optimization built from years of engineering work"),
         ],
       },
       {
@@ -355,10 +375,10 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet helps pages load faster and maintain performance reliability during sales and launches at high scale.",
         benefits: b2cPeakBenefits,
         features: [
-          "Multi-region failover",
-          "Multi-CDN setup",
-          "Compression",
-          "Load-time optimization built from years of engineering work",
+          dashboardFeature("Multi-region failover"),
+          dashboardFeature("Multi-CDN setup"),
+          reportFeature("Compression"),
+          reportFeature("Load-time optimization built from years of engineering work"),
         ],
       },
     ],
@@ -379,6 +399,31 @@ export function getSelectedProblems(industry: IndustryKey | "", selectedProblemI
   return getProblemsForIndustry(industry).filter((problem) => selected.has(problem.id));
 }
 
+function normalizeFeature(feature: DemoFeatureInput): DemoFeature {
+  if (typeof feature === "string") {
+    return {
+      label: feature,
+      bucket: "mention",
+    };
+  }
+
+  return {
+    label: feature.label,
+    bucket: feature.bucket ?? "mention",
+  };
+}
+
 export function getUniqueFeatures(problems: ProblemQuestion[]) {
-  return [...new Set(problems.flatMap((problem) => problem.features))];
+  const featureMap = new Map<string, DemoFeature>();
+
+  problems.flatMap((problem) => problem.features).forEach((feature) => {
+    const normalizedFeature = normalizeFeature(feature);
+    const key = `${normalizedFeature.bucket}:${normalizedFeature.label}`;
+
+    if (!featureMap.has(key)) {
+      featureMap.set(key, normalizedFeature);
+    }
+  });
+
+  return [...featureMap.values()];
 }
