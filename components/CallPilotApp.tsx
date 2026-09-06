@@ -34,10 +34,16 @@ export function CallPilotApp() {
   const features = useMemo(() => getUniqueFeatures(selectedProblems), [selectedProblems]);
 
   function selectIndustry(industry: IndustryKey) {
-    setPilotState({
+    const setupState: PilotState = {
       industry,
       selectedProblemIds: [],
       step: "setup",
+    };
+
+    setPastStates((current) => [...current, setupState]);
+    setPilotState({
+      ...setupState,
+      step: "problems",
     });
     setFutureStates([]);
   }
@@ -110,7 +116,6 @@ export function CallPilotApp() {
         <IndustryOnlySetup
           selectedIndustry={pilotState.industry}
           onSelectIndustry={selectIndustry}
-          onNext={() => goToStep("problems")}
         />
       ) : null}
 

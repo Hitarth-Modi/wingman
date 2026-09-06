@@ -6,13 +6,11 @@ import { industryLabels } from "@/data/problemPlaybooks";
 type IndustryOnlySetupProps = {
   selectedIndustry: IndustryKey | "";
   onSelectIndustry: (industry: IndustryKey) => void;
-  onNext: () => void;
 };
 
 export function IndustryOnlySetup({
   selectedIndustry,
   onSelectIndustry,
-  onNext,
 }: IndustryOnlySetupProps) {
   const industries = Object.entries(industryLabels) as [IndustryKey, string][];
 
@@ -31,7 +29,7 @@ export function IndustryOnlySetup({
         </p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid max-w-xl gap-3">
         {industries.map(([value, label]) => {
           const selected = selectedIndustry === value;
 
@@ -53,16 +51,6 @@ export function IndustryOnlySetup({
         })}
       </div>
 
-      <div className="flex justify-end">
-        <button
-          className="h-12 rounded-md bg-[#8a4fff] px-6 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-[#763de6] focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/25 disabled:cursor-not-allowed disabled:bg-[#b8a9ca]"
-          disabled={!selectedIndustry}
-          onClick={onNext}
-          type="button"
-        >
-          Next
-        </button>
-      </div>
     </section>
   );
 }
