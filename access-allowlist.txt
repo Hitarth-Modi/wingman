@@ -1,0 +1,8 @@
+# Gumlet CallPilot allowed users
+# Add one email per line. After editing this file, ask Codex to update the site access.
+divyesh@gumlet.com
+nisha@gumlet.com
+hitarth@gumlet.com
+nitin@gumlet.com
+shubham@gumlet.com
+shambhu@gumlet.com
