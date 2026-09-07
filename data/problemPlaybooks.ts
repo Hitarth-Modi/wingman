@@ -29,8 +29,8 @@ const ecommerceTrafficBenefits = [
 
 const ecommerceTrafficFeatures = [
   reportFeature("Best image compression in the industry"),
-  dashboardFeature("Auto-resize for mobile"),
-  dashboardFeature("Serving images in modern formats like AVIF"),
+  reportFeature("Auto-resize for mobile"),
+  mentionFeature("Serving images in modern formats like AVIF"),
 ];
 
 const ecommerceVideoBenefits = [
@@ -39,9 +39,9 @@ const ecommerceVideoBenefits = [
 ];
 
 const ecommerceVideoFeatures = [
-  reportFeature("Fast video load times backed by years of R&D"),
-  dashboardFeature("UGC to engaging lead magnets with CTAs and built-in lead-gen forms"),
-  dashboardFeature("Customizable, fast, light player with zero-buffer, instant-loading videos"),
+  mentionFeature("We've spent years of R&D to ensure the fastest video load times in the industry"),
+  dashboardFeature("Video CTAs & lead-gen forms to drive conversions"),
+  dashboardFeature("Customizable, lightweight video player"),
 ];
 
 const ecommerceLoadTimeBenefits = [
@@ -56,12 +56,8 @@ const ecommerceCatalogBenefits = [
 ];
 
 const ecommerceCatalogFeatures = [
-  dashboardFeature("Auto-resize images for any device"),
-  reportFeature("High compression"),
-  dashboardFeature("Auto format conversion"),
-  dashboardFeature("AI background removal"),
-  dashboardFeature("Face crop"),
-  dashboardFeature("Smart crop"),
+  reportFeature("Auto-resize images for any device, high compression, auto format conversion"),
+  reportFeature("AI background removal, face crop, smart crop"),
 ];
 
 const ecommerceCostBenefits = [
@@ -182,7 +178,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
         benefits: ecommerceLoadTimeBenefits,
         features: [
-          reportFeature("Best media compression in the world with at least 40% less media weight"),
+          reportFeature(
+            "Gumlet has the best media compression in the world, ensuring at least 40% less media weight",
+          ),
         ],
       },
       {
@@ -193,7 +191,9 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet helped Tata 1mg improve page load speed by loading dozens of images in less than 100ms.",
         benefits: ecommerceLoadTimeBenefits,
         features: [
-          reportFeature("Best media compression in the world with at least 40% less media weight"),
+          reportFeature(
+            "Gumlet has the best media compression in the world, ensuring at least 40% less media weight",
+          ),
         ],
       },
       {
@@ -222,7 +222,7 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
           "Gumlet eliminates the need for 5+ cloud services. Tata 1mg reduced cloud costs by 56% by implementing Gumlet.",
         benefits: ecommerceCostBenefits,
         features: [
-          reportFeature("Best media compression in the world"),
+          reportFeature("Gumlet has the best media compression in the world"),
           mentionFeature("Predictable and simple pricing"),
           mentionFeature("End-to-end solution"),
         ],
