@@ -22,6 +22,20 @@ The app opens with a single industry selection step. Choose `E-commerce`, `EdTec
 5. Click Next to review benefits.
 6. Continue to the Features to Demo screen.
 
+## Google Sheet Content Source
+
+CallPilot can read playbook content from a protected Google Apps Script web app
+without using Google Cloud billing. Set these server-side environment variables
+when deploying:
+
+```bash
+CALLPILOT_SHEET_TOKEN=your-secret-token
+CALLPILOT_SHEET_API_URL=https://script.google.com/macros/s/AKfycbz6kYdAnPN15_Kt74eSWhEPWKGZ2XaNWPU8yZY7trXVZMATLey900NEa8ZJjIc0OE1E9w/exec
+```
+
+If `CALLPILOT_SHEET_TOKEN` is missing, or if the sheet endpoint fails, the app
+uses the local TypeScript playbook data as a fallback.
+
 ## What V1 Includes
 
 - Industry-only setup.
@@ -35,8 +49,8 @@ The app opens with a single industry selection step. Choose `E-commerce`, `EdTec
 
 ## Intentionally Mocked
 
-- Problem, solution, benefit, and feature content is stored locally in TypeScript.
-- Notion is not connected as a live data source yet.
+- Problem, solution, benefit, and feature content has a local TypeScript fallback.
+- Google Sheet content loading is server-side and requires a protected Apps Script token.
 - No data persists after refresh.
 
 ## Not Built Yet

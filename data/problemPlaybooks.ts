@@ -4,6 +4,7 @@ import type {
   DemoFeatureInput,
   IndustryKey,
   IndustryPlaybook,
+  PlaybookContent,
   ProblemQuestion,
 } from "@/types/playbook";
 
@@ -123,7 +124,7 @@ const b2cPeakBenefits = [
   "Gumlet media loads 40% faster.",
 ];
 
-export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
+export const problemPlaybooks: PlaybookContent = {
   ecommerce: {
     situation:
       "A lot of e-commerce sites compete for the same buyers' attention and need to win traffic, conversion, and retention.",
@@ -385,18 +386,30 @@ export const problemPlaybooks: Record<IndustryKey, IndustryPlaybook> = {
   },
 };
 
-export function getPlaybookForIndustry(industry: IndustryKey | "") {
-  return industry ? problemPlaybooks[industry] : null;
+export function getPlaybookForIndustry(
+  industry: IndustryKey | "",
+  playbooks: PlaybookContent = problemPlaybooks,
+) {
+  return industry ? playbooks[industry] : null;
 }
 
-export function getProblemsForIndustry(industry: IndustryKey | "") {
-  return getPlaybookForIndustry(industry)?.problems ?? [];
+export function getProblemsForIndustry(
+  industry: IndustryKey | "",
+  playbooks: PlaybookContent = problemPlaybooks,
+) {
+  return getPlaybookForIndustry(industry, playbooks)?.problems ?? [];
 }
 
-export function getSelectedProblems(industry: IndustryKey | "", selectedProblemIds: string[]) {
+export function getSelectedProblems(
+  industry: IndustryKey | "",
+  selectedProblemIds: string[],
+  playbooks: PlaybookContent = problemPlaybooks,
+) {
   const selected = new Set(selectedProblemIds);
 
-  return getProblemsForIndustry(industry).filter((problem) => selected.has(problem.id));
+  return getProblemsForIndustry(industry, playbooks).filter((problem) =>
+    selected.has(problem.id),
+  );
 }
 
 function normalizeFeature(feature: DemoFeatureInput): DemoFeature {

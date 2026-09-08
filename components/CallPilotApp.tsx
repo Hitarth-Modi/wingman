@@ -2,11 +2,18 @@
 
 import { useMemo, useState } from "react";
 import {
+  industryLabels as fallbackIndustryLabels,
+  problemPlaybooks,
   getProblemsForIndustry,
   getSelectedProblems,
   getUniqueFeatures,
 } from "@/data/problemPlaybooks";
-import type { IndustryKey, PilotState, PilotStep } from "@/types/playbook";
+import type {
+  IndustryKey,
+  PilotState,
+  PilotStep,
+  PlaybookContent,
+} from "@/types/playbook";
 import { BenefitsScreen } from "./BenefitsScreen";
 import { FeaturesScreen } from "./FeaturesScreen";
 import { IndustryOnlySetup } from "./IndustryOnlySetup";
@@ -19,17 +26,30 @@ const initialState: PilotState = {
   step: "setup",
 };
 
-export function CallPilotApp() {
+type CallPilotAppProps = {
+  industryOptions?: Record<IndustryKey, string>;
+  playbooks?: PlaybookContent;
+};
+
+export function CallPilotApp({
+  industryOptions = fallbackIndustryLabels,
+  playbooks = problemPlaybooks,
+}: CallPilotAppProps) {
   const [pilotState, setPilotState] = useState<PilotState>(initialState);
   const [pastStates, setPastStates] = useState<PilotState[]>([]);
   const [futureStates, setFutureStates] = useState<PilotState[]>([]);
   const problems = useMemo(
-    () => getProblemsForIndustry(pilotState.industry),
-    [pilotState.industry],
+    () => getProblemsForIndustry(pilotState.industry, playbooks),
+    [pilotState.industry, playbooks],
   );
   const selectedProblems = useMemo(
-    () => getSelectedProblems(pilotState.industry, pilotState.selectedProblemIds),
-    [pilotState.industry, pilotState.selectedProblemIds],
+    () =>
+      getSelectedProblems(
+        pilotState.industry,
+        pilotState.selectedProblemIds,
+        playbooks,
+      ),
+    [pilotState.industry, pilotState.selectedProblemIds, playbooks],
   );
   const features = useMemo(() => getUniqueFeatures(selectedProblems), [selectedProblems]);
 
@@ -114,6 +134,7 @@ export function CallPilotApp() {
     <PilotFrame step={pilotState.step} navigation={navigationProps}>
       {pilotState.step === "setup" ? (
         <IndustryOnlySetup
+          industryOptions={industryOptions}
           selectedIndustry={pilotState.industry}
           onSelectIndustry={selectIndustry}
         />

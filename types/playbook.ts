@@ -32,6 +32,8 @@ export type IndustryPlaybook = {
   problems: ProblemQuestion[];
 };
 
+export type PlaybookContent = Record<IndustryKey, IndustryPlaybook>;
+
 export type PilotState = {
   industry: IndustryKey | "";
   selectedProblemIds: string[];

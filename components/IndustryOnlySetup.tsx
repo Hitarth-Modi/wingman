@@ -4,15 +4,17 @@ import type { IndustryKey } from "@/types/playbook";
 import { industryLabels } from "@/data/problemPlaybooks";
 
 type IndustryOnlySetupProps = {
+  industryOptions?: Record<IndustryKey, string>;
   selectedIndustry: IndustryKey | "";
   onSelectIndustry: (industry: IndustryKey) => void;
 };
 
 export function IndustryOnlySetup({
+  industryOptions = industryLabels,
   selectedIndustry,
   onSelectIndustry,
 }: IndustryOnlySetupProps) {
-  const industries = Object.entries(industryLabels) as [IndustryKey, string][];
+  const industries = Object.entries(industryOptions) as [IndustryKey, string][];
 
   return (
     <section className="grid min-h-[calc(100vh-7rem)] content-center gap-6">
