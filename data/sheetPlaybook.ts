@@ -66,14 +66,7 @@ export function parseCallPilotSheetPayload(payload: unknown): CallPilotContent {
           industry: industryKey,
           question,
           solution,
-          benefits: sortedRows(benefits)
-            .filter(
-              (benefitRow) =>
-                isActive(benefitRow) &&
-                asText(value(benefitRow, "problem_id")) === id,
-            )
-            .map((benefitRow) => asText(value(benefitRow, "benefit_text")))
-            .filter(Boolean),
+          benefits: benefitsForProblem(row, benefits, id),
           features: sortedRows(demoFeatures)
             .filter(
               (featureRow) =>
@@ -186,6 +179,42 @@ function normalizeKeys(row: SheetRow): SheetRow {
 
 function sortedRows(rows: SheetRow[]) {
   return [...rows].sort((a, b) => sortOrder(a) - sortOrder(b));
+}
+
+function benefitsForProblem(
+  problemRow: SheetRow,
+  benefitRows: SheetRow[],
+  problemId: string,
+) {
+  const embeddedBenefits = [
+    value(problemRow, "benefit_1", "benefit1"),
+    value(problemRow, "benefit_2", "benefit2"),
+    value(problemRow, "benefit_3", "benefit3"),
+    value(problemRow, "benefit_4", "benefit4"),
+    value(problemRow, "benefit_5", "benefit5"),
+  ]
+    .map(asText)
+    .filter(Boolean);
+
+  if (embeddedBenefits.length > 0) {
+    return embeddedBenefits;
+  }
+
+  const combinedBenefits = asText(value(problemRow, "benefits"));
+  if (combinedBenefits) {
+    return combinedBenefits
+      .split(/\n+|\s\|\s/)
+      .map((benefit) => benefit.trim())
+      .filter(Boolean);
+  }
+
+  return sortedRows(benefitRows)
+    .filter(
+      (benefitRow) =>
+        isActive(benefitRow) && asText(value(benefitRow, "problem_id")) === problemId,
+    )
+    .map((benefitRow) => asText(value(benefitRow, "benefit_text")))
+    .filter(Boolean);
 }
 
 function sortOrder(row: SheetRow) {
