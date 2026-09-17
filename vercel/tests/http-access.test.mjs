@@ -101,7 +101,8 @@ test("production server gates HTML and RSC content using verified, approved sess
     assert.match(styles, /\.industry-option\s*\{/);
     assert.match(styles, /\.question-text\s*\{/);
     assert.match(styles, /\.login-wordmark\s*\{/);
-    assert.match(styles, /--background:\s*#f5f7f8/);
+    assert.match(styles, /--background:\s*#f9fafb/);
+    assert.match(styles, /--accent:\s*#4f39f6/);
   }
 
   const deniedPage = await fetch(`${origin}/login?error=AccessDenied`);
