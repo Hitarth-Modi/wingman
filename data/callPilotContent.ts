@@ -40,7 +40,7 @@ export async function getCallPilotContent(): Promise<CallPilotContent> {
     };
     return content;
   } catch (error) {
-    console.warn("CallPilot sheet content unavailable; using fallback.", error);
+    console.warn("wingman sheet content unavailable; using fallback.", error);
     return fallbackContent;
   }
 }

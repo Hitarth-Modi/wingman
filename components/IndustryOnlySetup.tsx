@@ -20,7 +20,7 @@ export function IndustryOnlySetup({
     <section className="grid min-h-[calc(100vh-7rem)] content-center gap-6">
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8a4fff]">
-          Gumlet CallPilot
+          wingman
         </p>
         <h2 className="mt-2 max-w-3xl text-4xl font-semibold leading-tight tracking-normal sm:text-5xl">
           Choose the prospect industry.

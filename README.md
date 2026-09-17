@@ -1,6 +1,6 @@
-# Gumlet CallPilot
+# wingman
 
-Gumlet CallPilot is an internal live-call companion for Gumlet sales reps. This version follows the latest feedback-driven workflow: choose an industry, tick the prospect problems that come up, read the matching solution, then move into benefits and demo features.
+wingman is an internal live-call companion for Gumlet sales reps. This version follows the latest feedback-driven workflow: choose an industry, tick the prospect problems that come up, read the matching solution, then move into benefits and demo features.
 
 It is not a chatbot, CRM, sales agent, AI integration, or call-listening tool.
 
@@ -24,7 +24,7 @@ The app opens with a single industry selection step. Choose `E-commerce`, `EdTec
 
 ## Google Sheet Content Source
 
-CallPilot can read playbook content from a protected Google Apps Script web app
+wingman can read playbook content from a protected Google Apps Script web app
 without using Google Cloud billing. Set these server-side environment variables
 when deploying:
 

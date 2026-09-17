@@ -98,7 +98,7 @@ export function parseCallPilotSheetPayload(payload: unknown): CallPilotContent {
   }
 
   if (industryKeys.some((key) => !playbooks[key])) {
-    throw new Error("Sheet payload does not include all active CallPilot industries.");
+    throw new Error("Sheet payload does not include all active wingman industries.");
   }
 
   return { industryLabels, playbooks };

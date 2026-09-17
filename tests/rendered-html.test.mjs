@@ -22,13 +22,13 @@ async function render() {
   );
 }
 
-test("server-renders Gumlet CallPilot setup", async () => {
+test("server-renders wingman setup", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Gumlet CallPilot<\/title>/i);
+  assert.match(html, /<title>wingman<\/title>/i);
   assert.match(html, /Choose the prospect industry/);
   assert.match(html, /E-commerce/);
   assert.match(html, /EdTech/);

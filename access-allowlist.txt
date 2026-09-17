@@ -1,4 +1,4 @@
-# Gumlet CallPilot allowed users
+# wingman allowed users
 # Add one email per line. After editing this file, ask Codex to update the site access.
 divyesh@gumlet.com
 nisha@gumlet.com

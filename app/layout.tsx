@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gumlet CallPilot",
+  title: "wingman",
   description: "A live sales-call companion for Gumlet sales representatives.",
   icons: {
     icon: "/favicon.svg",
