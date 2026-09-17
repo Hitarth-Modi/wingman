@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   getProblemsForIndustry,
   getSelectedProblems,
@@ -36,6 +36,9 @@ export function CallPilotApp({
   const [pilotState, setPilotState] = useState<PilotState>(initialState);
   const [pastStates, setPastStates] = useState<PilotState[]>([]);
   const [futureStates, setFutureStates] = useState<PilotState[]>([]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pilotState.step]);
   const problems = useMemo(
     () => getProblemsForIndustry(pilotState.industry, playbooks),
     [pilotState.industry, playbooks],
@@ -129,7 +132,8 @@ export function CallPilotApp({
   };
 
   return (
-    <PilotFrame step={pilotState.step} navigation={navigationProps}>
+    <PilotFrame step={pilotState.step} navigation={navigationProps}
+      industryLabel={pilotState.industry ? industryOptions[pilotState.industry] : undefined}>
       {pilotState.step === "setup" ? (
         <IndustryOnlySetup
           industryOptions={industryOptions}

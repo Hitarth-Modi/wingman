@@ -1,69 +1,53 @@
+import { FileChartColumn, LayoutDashboard, MessageCircle, Monitor, RotateCcw } from "lucide-react";
 import type { DemoFeature } from "@/types/playbook";
 
-type FeaturesScreenProps = {
-  features: DemoFeature[];
-  onStartOver: () => void;
-};
+type FeaturesScreenProps = { features: DemoFeature[]; onStartOver: () => void };
 
-const featureBuckets: {
-  id: DemoFeature["bucket"];
-  title: string;
-}[] = [
-  {
-    id: "dashboard",
-    title: "Show in dashboard",
-  },
-  {
-    id: "report",
-    title: "Show analyzer report or image-optimization report",
-  },
-  {
-    id: "mention",
-    title: "Mention",
-  },
-];
+const featureBuckets = [
+  { id: "dashboard", title: "Show in dashboard", icon: LayoutDashboard },
+  { id: "report", title: "Show analyzer report or image-optimization report", icon: FileChartColumn },
+  { id: "mention", title: "Mention", icon: MessageCircle },
+] as const;
 
 export function FeaturesScreen({ features, onStartOver }: FeaturesScreenProps) {
-  const visibleBuckets = featureBuckets
-    .map((bucket) => ({
-      ...bucket,
-      features: features.filter((feature) => feature.bucket === bucket.id),
-    }))
-    .filter((bucket) => bucket.features.length > 0);
+  const visibleBuckets = featureBuckets.map((bucket) => ({
+    ...bucket, features: features.filter((feature) => feature.bucket === bucket.id),
+  })).filter((bucket) => bucket.features.length > 0);
 
   return (
-    <section className="grid min-h-[calc(100vh-7rem)] content-start gap-10 bg-white px-2 py-6 sm:px-8">
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8a4fff]">
-          Demo
-        </p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-normal sm:text-4xl">
-          Features to Demo
-        </h2>
+    <section className="screen">
+      <div className="screen-heading">
+        <div>
+          <p className="eyebrow"><Monitor size={15} aria-hidden="true" />Demo</p>
+          <h2 className="screen-title">Features to Demo</h2>
+        </div>
+        <span className="selection-count">{features.length} feature{features.length === 1 ? "" : "s"}</span>
       </div>
-
-      <div className="grid gap-8">
-        {visibleBuckets.map((bucket) => (
-          <section key={bucket.id} className="border-l-4 border-[#8a4fff] pl-5">
-            <h3 className="text-lg font-semibold uppercase tracking-[0.14em] text-[#8a4fff]">
-              {bucket.title}
-            </h3>
-            <ul className="mt-4 list-disc space-y-2 pl-7 text-2xl font-semibold leading-tight sm:text-3xl">
-              {bucket.features.map((feature) => (
-                <li key={`${bucket.id}-${feature.label}`}>{feature.label}</li>
-              ))}
-            </ul>
-          </section>
-        ))}
+      <div className="demo-buckets">
+        {visibleBuckets.map((bucket) => {
+          const Icon = bucket.icon;
+          return (
+            <section key={bucket.id} className="demo-bucket" data-bucket={bucket.id}>
+              <div className="bucket-heading">
+                <span className="bucket-icon"><Icon size={18} aria-hidden="true" /></span>
+                <h3>{bucket.title}</h3>
+              </div>
+              <ul className="bucket-points">
+                {bucket.features.map((feature, index) => (
+                  <li key={`${bucket.id}-${feature.label}`}>
+                    <span className="feature-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                    <span>{feature.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </div>
-
-      <div>
-        <button
-          className="h-12 rounded-md border border-[#d8c8b3] bg-white px-6 text-sm font-semibold uppercase tracking-[0.14em] text-[#2b2d28] transition hover:bg-[#f8f1e6] focus:outline-none focus:ring-4 focus:ring-[#8a4fff]/20"
-          onClick={onStartOver}
-          type="button"
-        >
-          Start New Call
+      <div className="action-bar">
+        <span className="action-status"><Monitor size={16} aria-hidden="true" />Demo checklist</span>
+        <button className="secondary-button" onClick={onStartOver} type="button">
+          <RotateCcw size={16} aria-hidden="true" />Start New Call
         </button>
       </div>
     </section>

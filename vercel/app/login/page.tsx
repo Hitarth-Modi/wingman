@@ -4,6 +4,7 @@ import { authOptions, isAuthConfigured } from "@/lib/auth";
 import { isApprovedEmail } from "@/lib/access";
 import { GumletLogo } from "@/components/GumletLogo";
 import { GoogleSignIn } from "@/components/GoogleSignIn";
+import { Compass, ShieldCheck } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -18,17 +19,23 @@ export default async function Login({ searchParams }: {
   const { error } = await searchParams;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f8f1e6] px-6 py-12 text-[#1f211d]">
-      <div className="w-full max-w-sm">
-        <GumletLogo />
-        <h1 className="mt-6 text-3xl font-semibold">wingman</h1>
-        <p className="mb-6 mt-2 text-base text-[#665d52]">Sign in with your Gumlet Google account.</p>
-        {error ? <p role="alert" className="mb-4 text-sm text-red-700">
+    <main className="login-screen">
+      <header className="login-header">
+        <GumletLogo compact />
+        <span className="workspace-label"><ShieldCheck size={15} aria-hidden="true" />Gumlet workspace</span>
+      </header>
+      <div className="login-body">
+      <div className="login-content">
+        <div className="login-mark"><Compass size={30} strokeWidth={1.5} aria-hidden="true" /><h1 className="login-wordmark">wingman</h1></div>
+        <p className="login-copy">Sign in with your Gumlet Google account.</p>
+        {error ? <p role="alert" className="login-alert">
           {error === "AccessDenied" ? "This account does not have access. Please contact your administrator." : "Unable to sign in. Please try again."}
         </p> : null}
-        {!configured ? <p role="status" className="mb-4 text-sm text-[#665d52]">Sign-in is being set up. Please contact your administrator.</p> : null}
+        {!configured ? <p role="status" className="login-status">Sign-in is being set up. Please contact your administrator.</p> : null}
         <GoogleSignIn configured={configured} />
       </div>
+      </div>
+      <footer className="login-footer">Gumlet &middot; Internal workspace</footer>
     </main>
   );
 }
