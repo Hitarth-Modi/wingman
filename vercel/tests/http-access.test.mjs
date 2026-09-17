@@ -86,6 +86,24 @@ test("production server gates HTML and RSC content using verified, approved sess
   const loginHtml = await login.text();
   assert.match(loginHtml, /Sign in with Google/);
   assert.doesNotMatch(loginHtml, /Snapdeal|PDPs/);
+
+  // Check the served assets, not just the presence of the new page markup.
+  for (const pageHtml of [html, loginHtml]) {
+    const stylesheetPaths = [...pageHtml.matchAll(/<link\b[^>]*href="([^"]+\.css)"[^>]*>/g)].map((match) => match[1]);
+    assert.ok(stylesheetPaths.length, "Page must include its stylesheet");
+    let styles = "";
+    for (const path of stylesheetPaths) {
+      const response = await fetch(new URL(path, origin));
+      assert.equal(response.status, 200);
+      styles += await response.text();
+    }
+    assert.match(styles, /\.workspace-header\s*\{/);
+    assert.match(styles, /\.industry-option\s*\{/);
+    assert.match(styles, /\.question-text\s*\{/);
+    assert.match(styles, /\.login-wordmark\s*\{/);
+    assert.match(styles, /--background:\s*#f5f7f8/);
+  }
+
   const deniedPage = await fetch(`${origin}/login?error=AccessDenied`);
   assert.match(await deniedPage.text(), /does not have access/);
 
