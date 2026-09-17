@@ -1,0 +1,8 @@
+# wingman allowed users
+# Add one Gumlet email per line. Commit and redeploy after changes.
+divyesh@gumlet.com
+nisha@gumlet.com
+hitarth@gumlet.com
+nitin@gumlet.com
+shubham@gumlet.com
+shambhu@gumlet.com

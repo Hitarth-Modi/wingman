@@ -4,6 +4,15 @@ wingman is an internal live-call companion for Gumlet sales reps. This version f
 
 It is not a chatbot, CRM, sales agent, AI integration, or call-listening tool.
 
+## Vercel Version
+
+The `vercel/` folder contains the current wingman workflow adapted to standard
+Next.js with Google login and a server-side Gumlet email allowlist. See
+[Vercel setup instructions](vercel/README.md) for GitHub publishing, OAuth setup
+and environment settings. This is separate from the older repository named
+`Sales_AI_Assistant_Vercel`. In Vercel, use Root Directory `vercel` when importing
+this parent repository.
+
 ## Run Locally
 
 ```bash
