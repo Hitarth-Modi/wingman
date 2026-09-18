@@ -8,7 +8,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "test": "node --test tests/access-policy.test.mjs tests/problem-tags.test.mjs",
+    "test": "node --test tests/access-policy.test.mjs tests/problem-tags.test.mjs tests/benefit-groups.test.mjs",
     "test:integration": "node --test tests/http-access.test.mjs",
     "typecheck": "tsc --noEmit"
   },

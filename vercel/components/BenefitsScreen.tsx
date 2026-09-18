@@ -1,10 +1,12 @@
 import { ArrowRight, CircleCheck, TrendingUp } from "lucide-react";
 import type { ProblemQuestion } from "@/types/playbook";
+import { groupBenefitProblems } from "@/lib/benefit-groups.mjs";
 import { ContentTag } from "./ContentTag";
 
 type BenefitsScreenProps = { problems: ProblemQuestion[]; onNext: () => void };
 
 export function BenefitsScreen({ problems, onNext }: BenefitsScreenProps) {
+  const groups = groupBenefitProblems(problems);
   return (
     <section className="screen">
       <div className="screen-heading">
@@ -15,15 +17,19 @@ export function BenefitsScreen({ problems, onNext }: BenefitsScreenProps) {
         <span className="selection-count">{problems.length} problem{problems.length === 1 ? "" : "s"}</span>
       </div>
       <div className="benefit-list">
-        {problems.map((problem) => (
-          <article key={problem.id} className="benefit-item">
-            <p className="benefit-question">{problem.question}<ContentTag tag={problem.tag} /></p>
-            <p className="benefit-solution">{problem.solution}</p>
-            {problem.benefits.length ? (
+        {groups.map((group) => (
+          <article key={group.problems[0].id} className="benefit-item">
+            <div className="benefit-questions">
+              {group.problems.map((problem) => (
+                <p key={problem.id} className="benefit-question">{problem.question}<ContentTag tag={problem.tag} /></p>
+              ))}
+            </div>
+            <p className="benefit-solution">{group.solution}</p>
+            {group.benefits.length ? (
               <div className="benefit-details">
                 <h3>How Gumlet helps</h3>
                 <ul className="benefit-points">
-                  {problem.benefits.map((benefit) => (
+                  {group.benefits.map((benefit) => (
                     <li key={benefit}><CircleCheck size={18} aria-hidden="true" /><span>{benefit}</span></li>
                   ))}
                 </ul>
