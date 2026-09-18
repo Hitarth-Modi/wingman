@@ -2,6 +2,7 @@
 
 import { ArrowRight, CheckCheck, ChevronDown, Lightbulb, MessageSquare } from "lucide-react";
 import type { ProblemQuestion } from "@/types/playbook";
+import { ContentTag } from "./ContentTag";
 
 type ProblemQuestionListProps = {
   problems: ProblemQuestion[];
@@ -32,7 +33,7 @@ export function ProblemQuestionList({ problems, selectedProblemIds, onToggleProb
                 <input type="checkbox" className="question-checkbox" checked={isSelected}
                   aria-controls={isSelected ? solutionId : undefined}
                   onChange={() => onToggleProblem(problem.id)} />
-                <span className="question-text">{problem.question}</span>
+                <span className="question-text">{problem.question}<ContentTag tag={problem.tag} /></span>
                 <ChevronDown className="question-chevron" size={19} aria-hidden="true" />
               </label>
               {isSelected ? (

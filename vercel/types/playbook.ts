@@ -4,6 +4,17 @@ export type PilotStep = "setup" | "problems" | "benefits" | "features";
 
 export type DemoFeatureBucket = "dashboard" | "report" | "mention";
 
+export type ProblemTag =
+  | "SEO"
+  | "Performance"
+  | "Video for Ecomm"
+  | "Tech Time"
+  | "Cloud Spend"
+  | "Video Piracy"
+  | "Video Performance"
+  | "Cloud Cost"
+  | "Cloud Costs";
+
 export type DemoFeatureInput =
   | string
   | {
@@ -20,6 +31,7 @@ export type ProblemQuestion = {
   id: string;
   industry: IndustryKey;
   question: string;
+  tag?: ProblemTag;
   solution: string;
   benefits: string[];
   features: DemoFeatureInput[];

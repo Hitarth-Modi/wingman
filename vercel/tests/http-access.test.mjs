@@ -80,6 +80,8 @@ test("production server gates HTML and RSC content using verified, approved sess
   assert.match(html, /<title>wingman<\/title>/);
   assert.match(html, /E-commerce/);
   assert.match(html, /Snapdeal/);
+  assert.match(html, /tag.{0,6}:.{0,6}Performance/);
+  assert.match(html, /tag.{0,6}:.{0,6}SEO/);
 
   const login = await fetch(`${origin}/login`);
   assert.equal(login.status, 200);
@@ -105,6 +107,7 @@ test("production server gates HTML and RSC content using verified, approved sess
     assert.match(styles, /--accent:\s*#4f39f6/);
     assert.match(styles, /@media[^{}]*max-width:\s*1024px/);
     assert.match(styles, /\.question-text\s*\{[^{}]*font-size:\s*18px/);
+    assert.match(styles, /\.content-tag\[data-tone=.?performance.?\]\s*\{[^{}]*color:\s*#2563a6/);
   }
 
   const deniedPage = await fetch(`${origin}/login?error=AccessDenied`);

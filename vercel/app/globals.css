@@ -78,6 +78,12 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .question-row:has(input:focus-visible) { outline: 3px solid var(--accent-ring); outline-offset: -4px; }
 .question-checkbox { width: 24px; height: 24px; margin: 8px 0 0; flex-shrink: 0; accent-color: var(--accent); }
 .question-text { flex: 1; min-width: 0; font-size: 28px; font-weight: 550; line-height: 1.45; overflow-wrap: anywhere; }
+.content-tag { display: inline-block; max-width: 100%; margin-inline-start: 5px; font-size: 13px; font-weight: 600; line-height: 1.4; vertical-align: baseline; }
+.content-tag[data-tone="performance"] { color: #2563a6; }
+.content-tag[data-tone="video"] { color: #b83c35; }
+.content-tag[data-tone="cloud"] { color: #a6530e; }
+.content-tag[data-tone="time"] { color: #8055a4; }
+.content-tag[data-tone="seo"] { color: #28764d; }
 .question-chevron { flex-shrink: 0; margin-top: 10px; color: #9caab1; transition: transform .2s; }
 .is-selected .question-chevron { transform: rotate(180deg); color: var(--accent); }
 .solution-block { padding: 20px 24px 23px 65px; border-top: 1px solid #e1dffc; animation: screen-enter .18s ease-out; }
@@ -195,7 +201,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .industry-icon { width: 36px; height: 36px; }
   .industry-name { font-size: 18px; }
   .question-list, .benefit-list { gap: 8px; }
-  .question-row { gap: 12px; min-height: 52px; padding: 12px 16px; scroll-margin-block: 110px 80px; }
+  .question-row { gap: 12px; min-height: 52px; padding: 10px 16px; scroll-margin-block: 110px 80px; }
   .question-text { font-size: 18px; line-height: 1.4; }
   .question-checkbox { width: 20px; height: 20px; margin-top: 3px; }
   .question-chevron { width: 17px; margin-top: 4px; }

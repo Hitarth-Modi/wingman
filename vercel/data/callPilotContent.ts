@@ -1,4 +1,6 @@
 import "server-only";
+import { getProblemTag } from "@/lib/problem-tags.mjs";
+import type { IndustryKey } from "@/types/playbook";
 import {
   industryLabels,
   problemPlaybooks,
@@ -47,9 +49,19 @@ export async function getCallPilotContent(): Promise<CallPilotContent> {
 }
 
 function getFallbackContent(): CallPilotContent {
+  const playbooks = { ...problemPlaybooks };
+  for (const industry of Object.keys(playbooks) as IndustryKey[]) {
+    playbooks[industry] = {
+      ...playbooks[industry],
+      problems: playbooks[industry].problems.map((problem) => ({
+        ...problem,
+        tag: getProblemTag(problem.id),
+      })),
+    };
+  }
   return {
     industryLabels,
-    playbooks: problemPlaybooks,
+    playbooks,
   };
 }
 

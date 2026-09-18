@@ -1,5 +1,6 @@
 import { ArrowRight, CircleCheck, TrendingUp } from "lucide-react";
 import type { ProblemQuestion } from "@/types/playbook";
+import { ContentTag } from "./ContentTag";
 
 type BenefitsScreenProps = { problems: ProblemQuestion[]; onNext: () => void };
 
@@ -16,7 +17,7 @@ export function BenefitsScreen({ problems, onNext }: BenefitsScreenProps) {
       <div className="benefit-list">
         {problems.map((problem) => (
           <article key={problem.id} className="benefit-item">
-            <p className="benefit-question">{problem.question}</p>
+            <p className="benefit-question">{problem.question}<ContentTag tag={problem.tag} /></p>
             <p className="benefit-solution">{problem.solution}</p>
             {problem.benefits.length ? (
               <div className="benefit-details">

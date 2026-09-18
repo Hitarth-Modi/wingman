@@ -1,4 +1,5 @@
 import { industryLabels as fallbackIndustryLabels } from "@/data/problemPlaybooks";
+import { getProblemTag } from "@/lib/problem-tags.mjs";
 import type {
   DemoFeatureBucket,
   IndustryKey,
@@ -65,6 +66,7 @@ export function parseCallPilotSheetPayload(payload: unknown): CallPilotContent {
           id,
           industry: industryKey,
           question,
+          tag: getProblemTag(id, value(row, "tag", "question_tag")),
           solution,
           benefits: benefitsForProblem(row, benefits, id),
           features: sortedRows(demoFeatures)
