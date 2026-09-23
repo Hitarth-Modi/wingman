@@ -12,7 +12,7 @@ import {
 
 const DEFAULT_SHEET_API_URL =
   "https://script.google.com/macros/s/AKfycbz6kYdAnPN15_Kt74eSWhEPWKGZ2XaNWPU8yZY7trXVZMATLey900NEa8ZJjIc0OE1E9w/exec";
-const CACHE_MS = 60_000;
+const CACHE_MS = 10_000;
 const FETCH_TIMEOUT_MS = 12_000;
 
 type CacheEntry = {
