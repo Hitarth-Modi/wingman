@@ -7,16 +7,14 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { encode } from "next-auth/jwt";
-import { parseAllowlist } from "../lib/access-policy.mjs";
 
-test("production server gates HTML and RSC content using verified, approved sessions", async (t) => {
+test("production server gates HTML and RSC content using verified Gumlet sessions", async (t) => {
   const reservation = createServer();
   await new Promise((resolve) => reservation.listen(0, "127.0.0.1", resolve));
   const port = reservation.address().port;
   await new Promise((resolve) => reservation.close(resolve));
   const secret = randomBytes(32).toString("hex");
-  const approvedEmail = parseAllowlist(readFileSync(new URL("../access-allowlist.txt", import.meta.url), "utf8")).values().next().value;
-  assert.ok(approvedEmail);
+  const approvedEmail = "new.employee@gumlet.com";
   const origin = `http://localhost:${port}`;
   const child = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--port", String(port)], {
     cwd: fileURLToPath(new URL("../", import.meta.url)),
@@ -56,8 +54,8 @@ test("production server gates HTML and RSC content using verified, approved sess
   for (const token of [
     { email: approvedEmail },
     { email: approvedEmail, googleVerified: false },
-    { email: "stranger@gumlet.com", googleVerified: true },
     { email: "hitarth@gmail.com", googleVerified: true },
+    { email: "hitarth@gumlet.com.attacker.com", googleVerified: true },
   ]) {
     const denied = await request(token);
     assert.equal(denied.status, 307);

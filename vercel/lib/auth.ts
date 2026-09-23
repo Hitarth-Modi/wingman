@@ -2,7 +2,7 @@ import "server-only";
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { redirect } from "next/navigation";
-import { getAllowlist, isApprovedEmail } from "./access";
+import { isApprovedEmail } from "./access";
 import { isApprovedGoogleProfile } from "./access-policy.mjs";
 
 export function isAuthConfigured(): boolean {
@@ -25,11 +25,11 @@ export const authOptions: NextAuthOptions = {
   pages: { signIn: "/login", error: "/login" },
   callbacks: {
     async signIn({ account, profile }) {
-      return isApprovedGoogleProfile(account?.provider, profile, getAllowlist());
+      return isApprovedGoogleProfile(account?.provider, profile);
     },
     async jwt({ token, account, profile }) {
       if (account) {
-        token.googleVerified = isApprovedGoogleProfile(account.provider, profile, getAllowlist());
+        token.googleVerified = isApprovedGoogleProfile(account.provider, profile);
         token.email = profile?.email;
       }
       if (!isApprovedEmail(token.email)) token.googleVerified = false;

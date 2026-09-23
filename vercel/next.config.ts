@@ -4,9 +4,6 @@ import { fileURLToPath } from "node:url";
 
 const nextConfig: NextConfig = {
   turbopack: { root: dirname(fileURLToPath(import.meta.url)) },
-  outputFileTracingIncludes: {
-    "/*": ["./access-allowlist.txt"],
-  },
 };
 
 export default nextConfig;

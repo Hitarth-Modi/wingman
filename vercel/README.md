@@ -4,11 +4,11 @@ This folder contains the current wingman workflow adapted to standard Next.js,
 with Google Workspace login. It is independent of the older repository named
 `Sales_AI_Assistant_Vercel`.
 
-Only Google-verified accounts belonging to the Gumlet Workspace and listed in
-`access-allowlist.txt` can enter. Knowing an approved email address is not enough.
-The server checks access before loading or sending the playbook. Google OAuth
-handles passwords; this app never asks for or stores them. Sessions expire after
-eight hours. Removed emails are rejected on the next request after redeploying.
+Only Google-verified accounts belonging to the Gumlet Workspace can enter.
+Knowing or typing a Gumlet email address is not enough: Google must authenticate
+the account and confirm the `gumlet.com` Workspace domain. The server checks
+access before loading or sending the playbook. Google OAuth handles passwords;
+this app never asks for or stores them. Sessions expire after eight hours.
 
 ## 1. Put this version on GitHub
 
@@ -106,7 +106,7 @@ credentials or sheet token.
 
 Missing sheet credentials use the existing local playbook as a fallback. For
 sheet editing to update the site, supply the sheet token. Successful sheet reads
-are cached for up to 60 seconds per server instance. Refresh/reopen the tool after
+are cached for up to 10 seconds per server instance. Refresh/reopen the tool after
 editing the sheet; an already-open call does not change in the background.
 
 After saving variables, use Deployments > latest deployment > Redeploy. Changes
@@ -116,10 +116,9 @@ to environment variables need a new deployment to take effect.
 
 1. Open the production URL in an incognito window: only the login screen should
    appear.
-2. Sign in with an approved Gumlet Google account and complete the four-step flow.
-3. Sign out, then try a personal Gmail account or an unlisted Gumlet account.
-   Neither should be able to enter.
-4. Make a small sheet change, wait at least a minute, refresh the signed-in tool,
+2. Sign in with a Gumlet Google account and complete the four-step flow.
+3. Sign out, then try a personal Gmail account. It should not be able to enter.
+4. Make a small sheet change, wait at least 10 seconds, refresh the signed-in tool,
    and check that the change appears.
 
 Keep using the existing chatgpt.site version until these checks succeed. This
@@ -128,8 +127,8 @@ folder does not disable or redirect the current live site.
 ## Future updates
 
 Edit this Vercel version, commit, then push to its GitHub repository. Vercel
-automatically rebuilds and deploys the connected production branch. Add/remove
-approved emails in this folder's `access-allowlist.txt`, then commit and push.
+automatically rebuilds and deploys the connected production branch. Access is
+granted to all Google-verified accounts in the `gumlet.com` Workspace.
 
 For a custom domain such as `wingman.gumlet.com`, add it in Vercel > Settings >
 Domains and apply Vercel's displayed DNS record through your Gumlet DNS admin.
